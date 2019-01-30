@@ -32,6 +32,11 @@ class Main extends Component {
         }));
     }
 
+    componentDidUpdate(prevProps, prevState){
+        console.log(prevState.posts);
+        console.log(this.state);
+    }
+
     render() {
         return <div>
             <Title title={'Photowall'} />
