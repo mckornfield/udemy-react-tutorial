@@ -10,12 +10,11 @@ class Main extends Component {
     }
 
     render() {
-        console.log(this.props.posts);
         return (<div>
             <Route exact path="/" render={() => {
                 return <div>
                     <Title title={'Photowall'} />
-                    {/* <PhotoWall posts={this.state.posts} onRemovePhoto={this.removePhoto} onNavigate={this.navigate} /> */}
+                    <PhotoWall posts={this.props.posts} />
                 </div>
             }} />
 

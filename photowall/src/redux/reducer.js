@@ -1,6 +1,6 @@
-import posts2 from '../data/posts'
+import posts from '../data/posts'
 
-const postReducer = function posts(state = posts2, action) {
+const postReducer = function reducer(state = posts, action) {
     return state;
 }
 
