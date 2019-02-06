@@ -11,9 +11,6 @@ class Main extends Component {
         super();
     }
 
-    componentDidMount() {
-    }
-
     render() {
         console.log(this.props);
         return (<div>
