@@ -8,3 +8,10 @@ export function removePost(index) {
 }
 
 // function addPost(index)
+
+export function addPost(post) {
+    return {
+        type: "ADD_POST",
+        post
+    };
+}
