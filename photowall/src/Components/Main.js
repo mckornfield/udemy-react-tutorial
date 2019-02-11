@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import Title from './Title'
 import PhotoWall from './PhotoWall';
 import AddPhoto from './AddPhoto';
-import { Route, Link } from 'react-router-dom';
+import Single from './Single';
+import { Route } from 'react-router-dom';
+
 
 class Main extends Component {
 
     render() {
         return (<div>
-            <h1>
-                <Link to="/">Photowall</Link>
-            </h1>
+            <Title title={'PhotoWall'}/>
             <Route exact path="/" render={() => {
                 return <div>
                     <PhotoWall {...this.props} />
@@ -19,6 +19,10 @@ class Main extends Component {
 
             <Route path="/AddPhoto" render={({ history }) => {
                 return <AddPhoto {...this.props} />
+            }} />
+            
+            <Route path="/single/:id" render={(params) => {
+                return <Single {...this.props} {...params} />
             }} />
         </div>
         )
