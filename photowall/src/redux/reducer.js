@@ -18,11 +18,16 @@ function comments(state = {}, action) {
 
 function posts(state = postData, action) {
     console.log("post reducer")
+    console.log("action is " + JSON.stringify(action))
     switch (action.type) {
         case 'REMOVE_POST':
             return [...state.slice(0, action.index), ...state.slice(action.index + 1)]
         case 'ADD_POST':
             return [...state, action.post]
+        case 'LOAD_POSTS':
+                console.log("inside switch statement for load posts");
+                console.log(action);
+                return action.posts
         default:
             return state;
     }

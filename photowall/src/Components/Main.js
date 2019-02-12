@@ -7,10 +7,13 @@ import { Route } from 'react-router-dom';
 
 
 class Main extends Component {
+    componentDidMount() {
+        this.props.startLoadingPosts();
+    }
 
     render() {
         return (<div>
-            <Title title={'PhotoWall'}/>
+            <Title title={'PhotoWall'} />
             <Route exact path="/" render={() => {
                 return <div>
                     <PhotoWall {...this.props} />
@@ -20,7 +23,7 @@ class Main extends Component {
             <Route path="/AddPhoto" render={({ history }) => {
                 return <AddPhoto {...this.props} />
             }} />
-            
+
             <Route path="/single/:id" render={(params) => {
                 return <Single {...this.props} {...params} />
             }} />
