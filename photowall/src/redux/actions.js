@@ -31,6 +31,13 @@ export function startLoadingPosts() {
     }
 }
 
+export function startRemovingPost(index, id) {
+    return (dispatch) => {
+        return database.ref(`posts/${id}`).remove().then(() => {
+            dispatch(removePost(index));
+        })
+    }
+}
 
 export function loadPosts(posts) {
     console.log("inside load posts")
