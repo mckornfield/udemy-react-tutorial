@@ -27,6 +27,9 @@ export function startLoadingPosts() {
             console.log("fetched posts")
             console.log(posts)
             dispatch(loadPosts(posts));
+        }).catch((error) => {
+            console.log(error);
+            console.log("Error loading posts")
         });
     }
 }
@@ -37,6 +40,19 @@ export function startRemovingPost(index, id) {
             dispatch(removePost(index));
         })
     }
+}
+
+export function startAddingComment(comment, postId) {
+    console.log("inside start adding comment")
+    return (dispatch) => {
+        return database.ref(`comment/${postId}`).push(comment).then(() => {
+            dispatch(addComment(comment, postId))
+            console.log("Success creating comment")
+        }).catch((error) => {
+            console.log(error);
+            console.log("Error adding comment")
+        })
+    };
 }
 
 export function loadPosts(posts) {
