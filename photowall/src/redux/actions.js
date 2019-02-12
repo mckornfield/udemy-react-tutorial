@@ -1,3 +1,14 @@
+import { database } from '../database/config';
+export function startAddingPost(post) {
+    return (dispatch) => {
+        return database.ref('posts').update({ [post.id]: post }).then(() => {
+            dispatch(addPost(post))
+        }).catch((error) => {
+            console.log(error);
+        })
+    };
+}
+
 export function removePost(index) {
     return {
         type: "REMOVE_POST",
@@ -13,7 +24,7 @@ export function addPost(post) {
 }
 
 
-export function addComment(comment,postId) {
+export function addComment(comment, postId) {
     return {
         type: "ADD_COMMENT",
         comment,
