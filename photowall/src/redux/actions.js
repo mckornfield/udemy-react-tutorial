@@ -2,35 +2,62 @@ import { database } from '../database/config';
 export function startAddingPost(post) {
 
     console.log("inside start adding post")
-    return (dispatch) => {
-        return database.ref('posts').update({ [post.id]: post }).then(() => {
-            dispatch(addPost(post))
-            console.log("Success creating post")
-        }).catch((error) => {
+    return async (dispatch) => {
+        try {
+            await database.ref('posts').update({ [post.id]: post });
+            dispatch(addPost(post));
+            console.log("Success creating post");
+        }
+        catch (error) {
             console.log(error);
-            console.log("Error creating post")
-        })
+            console.log("Error creating post");
+        }
     };
 }
 
 export function startLoadingPosts() {
-    return (dispatch) => {
+    return async (dispatch) => {
 
         console.log("trying to fetch posts")
-        return database.ref('posts').once('value').then((snapshot) => {
+        try {
+            const snapshot = await database.ref('posts').once('value');
             const posts = [];
-
-            console.log("mapping posts to fetch posts")
+            console.log("mapping posts to fetch posts");
             snapshot.forEach((childSnapshot) => {
-                posts.push(childSnapshot.val())
-            })
-            console.log("fetched posts")
-            console.log(posts)
+                posts.push(childSnapshot.val());
+            });
+            console.log("fetched posts");
+            console.log(posts);
             dispatch(loadPosts(posts));
-        }).catch((error) => {
+        }
+        catch (error) {
             console.log(error);
-            console.log("Error loading posts")
+            console.log("Error loading posts");
+        }
+    }
+}
+
+export function startLoadingComments() {
+    return (dispatch) => {
+        return database.ref('comment').once('value').then((snapshot) => {
+            const comments = {};
+            snapshot.forEach((childSnapshot) => {
+                console.log(childSnapshot.key);
+                console.log(childSnapshot.val());
+                comments[childSnapshot.key] = Object.values(childSnapshot.val())
+            })
+            dispatch(loadComments(comments))
+        }).catch((error) => {
+            console.log("Error loading comments")
+            console.log(error);
         });
+    }
+}
+
+export function loadComments(comments) {
+    return {
+        type: 'LOAD_COMMENTS',
+        comments
     }
 }
 

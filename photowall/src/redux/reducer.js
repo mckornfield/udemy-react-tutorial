@@ -3,10 +3,14 @@ import { combineReducers } from 'redux';
 
 function comments(state = {}, action) {
     switch (action.type) {
+        case 'LOAD_COMMENTS':
+            console.log("loading comments reducer")
+            console.log(JSON.stringify(action.comments))
+            return action.comments;
         case 'ADD_COMMENT':
             console.log(action.postId);
             if (state[action.postId]) {
-                return {...state, [action.postId]: [...state[action.postId], action.comment]}
+                return { ...state, [action.postId]: [...state[action.postId], action.comment] }
             } else {
                 return { ...state, [action.postId]: [action.comment] };
             }
@@ -25,9 +29,9 @@ function posts(state = postData, action) {
         case 'ADD_POST':
             return [...state, action.post]
         case 'LOAD_POSTS':
-                console.log("inside switch statement for load posts");
-                console.log(action);
-                return action.posts
+            console.log("inside switch statement for load posts");
+            console.log(action);
+            return action.posts
         default:
             return state;
     }
